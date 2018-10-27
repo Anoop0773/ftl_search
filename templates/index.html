@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+        <title>Bootstrap Example</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+        rel = "stylesheet">
+     <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+     <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+<style>
+        #custom-search-input{
+            padding: 3px;
+            border: solid 1px #E4E4E4;
+            border-radius: 6px;
+            background-color: #fff;
+        }
+        
+        #custom-search-input input{
+            border: 0;
+            box-shadow: none;
+        }
+        
+        #custom-search-input button{
+            margin: 2px 0 0 0;
+            background: none;
+            box-shadow: none;
+            border: 0;
+            color: #666666;
+            padding: 0 8px 0 10px;
+            border-left: solid 1px #ccc;
+        }
+        
+        #custom-search-input button:hover{
+            border: 0;
+            box-shadow: none;
+            border-left: solid 1px #ccc;
+        }
+        
+        #custom-search-input .glyphicon-search{
+            font-size: 23px;
+        }
+</style>
+
+</head>
+<body>
+ 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-md-offset-4">
+                <h2>Custom search field</h2>
+                <div id="custom-search-input">
+                    <div class="input-group col-md-12">
+                        <input type="text" class="form-control input-lg" placeholder="Search..." id="tags" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-info btn-lg" type="button">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     
+            <!-- <b>Search</b>
+          <input type="text" class="form-control" name="search" id="tags" >
+         -->
+
+ 
+</body>
+</html>
+
+<script>
+ 
+
+        
+
+            $("#tags").on('keyup', function(){
+                var value = $(this).val();
+                $.ajax({
+                    url: "{% url 'search' %}",
+                    type: 'GET',
+                    data: {
+                      'word': value,
+                      
+                    },
+                   
+                    success: function (data) {
+                        list = data.search_list;
+                        $("#tags").autocomplete({
+                        source: list,
+                        minLength: 1 
+                        });       
+                    }
+                });        
+            });
+       
+
+       
+    
+    </script>
